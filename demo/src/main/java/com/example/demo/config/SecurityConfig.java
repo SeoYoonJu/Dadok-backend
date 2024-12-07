@@ -62,7 +62,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .httpBasic(httpBasic -> httpBasic.disable())
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/book", "/scrape-products").authenticated() // 인증만 필요
+                        .requestMatchers("/book", "/scrape-products","/chat","/mypage","/report","/scripts").authenticated() // 인증만 필요
                         .anyRequest().permitAll()
                 )
                 .sessionManagement(sessionManagement ->

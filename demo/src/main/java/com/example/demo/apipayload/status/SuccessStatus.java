@@ -20,10 +20,6 @@ public enum SuccessStatus implements BaseCode {
     IM_USED(HttpStatus.IM_USED, "COMMON226", "IM 사용됨");
 
 
-    // 멤버 관련 응답
-
-    // ~~~ 관련 응답
-
     private final HttpStatus httpStatus;
     private final String code;
     private final String message;

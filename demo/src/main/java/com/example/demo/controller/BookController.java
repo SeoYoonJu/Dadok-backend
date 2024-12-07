@@ -4,17 +4,13 @@ import com.example.demo.apipayload.ApiResponse;
 import com.example.demo.domain.User;
 import com.example.demo.dto.book.BookRequestDTO;
 import com.example.demo.dto.book.BookResponseDTO;
-import com.example.demo.service.BookService;
+import com.example.demo.service.book.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -50,11 +46,18 @@ public class BookController {
 
 
     @GetMapping("/{bookId}")
-    public ResponseEntity<ApiResponse<BookResponseDTO>> showDiary(@PathVariable Long bookId){
+    public ResponseEntity<ApiResponse<BookResponseDTO>> showBook(@PathVariable Long bookId){
         String username = getCurrentUsername();
-        BookResponseDTO eachDiary = bookService.showMyBook(username, bookId);
+        BookResponseDTO eachDiary = bookService.showBook(username, bookId);
 
         return ResponseEntity.ok(ApiResponse.onSuccess(eachDiary));
+    }
+
+    @GetMapping("/who/{bookId}")
+    public ResponseEntity<Boolean> giveMyInfo(@AuthenticationPrincipal User user, @PathVariable Long bookId){
+        Boolean myId = bookService.compareUser(user.getId(), bookId);
+        System.out.println(myId);
+        return ResponseEntity.ok(myId);
     }
 
     @GetMapping("/all")

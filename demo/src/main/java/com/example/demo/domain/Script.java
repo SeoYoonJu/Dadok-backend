@@ -4,7 +4,7 @@ package com.example.demo.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @Entity
@@ -19,5 +19,5 @@ public class Script {
     private Long scriptId;
     private String content;
     private String author;
-    private Date date;
+    private LocalDate date;
 }

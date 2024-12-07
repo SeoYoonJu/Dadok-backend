@@ -1,15 +1,14 @@
 package com.example.demo.controller;
 
 import com.example.demo.apipayload.ApiResponse;
-import com.example.demo.dto.book.BookRequestDTO;
-import com.example.demo.dto.book.BookResponseDTO;
+import com.example.demo.domain.User;
 import com.example.demo.dto.report.ReportRequestDTO;
 import com.example.demo.dto.report.ReportResponseDTO;
-import com.example.demo.service.BookService;
-import com.example.demo.service.ReportService;
+import com.example.demo.service.report.ReportService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,9 +55,16 @@ public class ReportController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<ApiResponse<List<ReportResponseDTO>>> showAllReport(){
-        List<ReportResponseDTO> allReports = reportService.showAllReports();
+    public ResponseEntity<ApiResponse<List<ReportResponseDTO>>> showAllReport(@AuthenticationPrincipal User user){
+        List<ReportResponseDTO> allReports = reportService.showAllReports(user);
 
         return ResponseEntity.ok(ApiResponse.onSuccess(allReports));
+    }
+
+    @DeleteMapping("/{reportId}")
+    public ResponseEntity<ApiResponse<String>> deleteReport(@AuthenticationPrincipal User user, @PathVariable Long reportId){
+        reportService.deleteMyReport(user.getId(),reportId);
+
+        return ResponseEntity.ok(ApiResponse.onSuccess("삭제완료"));
     }
 }

@@ -3,7 +3,6 @@ package com.example.demo.dto.mypage;
 
 import com.example.demo.domain.Book;
 import com.example.demo.domain.User;
-import com.example.demo.dto.book.BookResponseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

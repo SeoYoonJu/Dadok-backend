@@ -1,6 +1,5 @@
 package com.example.demo.dto.report;
 
-import com.example.demo.domain.Book;
 import com.example.demo.domain.Report;
 import com.example.demo.domain.User;
 import lombok.*;
