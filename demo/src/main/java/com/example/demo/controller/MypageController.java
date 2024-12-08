@@ -23,4 +23,11 @@ public class MypageController {
         ProfileResponseDTO Profile = mypageService.showMyProfile(user.getId());
         return ResponseEntity.ok(ApiResponse.onSuccess(Profile));
     }
+
+    @GetMapping("/percent")
+    public ResponseEntity<ApiResponse<Long>> showPercent(@AuthenticationPrincipal User user){
+        Long percent = mypageService.calculateProgress(user.getId());
+        return ResponseEntity.ok(ApiResponse.onSuccess(percent));
+    }
+
 }
